@@ -19,6 +19,7 @@ import {
   ForegroundColors,
   defaultAmountToDarkenLighten,
   ColorSource,
+  ColorCondition
 } from '../models';
 import {
   getAdjustedColorHex,
@@ -471,6 +472,10 @@ export function getOriginalColorsForAllElements() {
 export function hasFavorites() {
   const s = getAllUserSettings();
   return s.favoriteColors.values.length;
+}
+
+export function getColorsFromCondition() {
+  return readConfiguration<Array<ColorCondition>>(StandardSettings.ColorsFromCondition, []); 
 }
 
 function getAllUserSettings() {

@@ -13,6 +13,7 @@ export enum StandardSettings {
   SurpriseMeOnStartup = 'surpriseMeOnStartup',
   RemoteColor = 'remoteColor',
   Color = 'color',
+  ColorsFromCondition = 'colorsFromCondition',
 }
 
 export enum AffectedSettings {
@@ -71,6 +72,11 @@ export enum ColorAdjustmentOptions {
   lighten = 'lighten',
   darken = 'darken',
   none = 'none',
+}
+
+export type ColorCondition = {
+  hasFile: string,
+  color: string
 }
 
 export enum Sections {

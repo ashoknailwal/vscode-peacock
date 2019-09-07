@@ -1,4 +1,4 @@
-import { ColorAdjustment, ElementNames } from './enums';
+import { ColorAdjustment, ElementNames, ColorCondition } from './enums';
 
 export interface ISettingsIndexer {
   [key: string]: any;
@@ -58,6 +58,7 @@ export interface IPeacockSettings {
   surpriseMeOnStartup: boolean;
   color: string;
   remoteColor: string;
+  colorsFromCondition: Array<ColorCondition>;
 }
 
 export interface IElementColors {

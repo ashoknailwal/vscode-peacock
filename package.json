@@ -305,6 +305,14 @@
           "type": "string",
           "default": "",
           "description": "Peacock color for Live Share Color when acting as a Guest "
+        },
+        "peacock.colorsFromCondition": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "object"
+          },
+          "description": "Peacock color based on condition. This overrides the color setting."
         }
       }
     }

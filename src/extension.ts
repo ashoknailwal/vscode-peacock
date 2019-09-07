@@ -8,6 +8,7 @@ import {
   extensionShortName,
   getExtensionVersion,
   ColorSource,
+  ColorCondition
 } from './models';
 import {
   resetWorkspaceColorsHandler,
@@ -26,6 +27,7 @@ import {
 import {
   checkIfPeacockSettingsChanged,
   getSurpriseMeOnStartup,
+  getColorsFromCondition,
   writeRecommendedFavoriteColors,
   getEnvironmentAwareColor,
   inspectColor,
@@ -65,6 +67,7 @@ export async function activate(context: vscode.ExtensionContext) {
      * This entire function will re-run when a workspace is opened.
      */
     await checkSurpriseMeOnStartupLogic();
+    await setColorsFromCondition()
     await addLiveShareIntegration(State.extensionContext);
     await addRemoteIntegration(State.extensionContext);
   } else {
@@ -161,4 +164,17 @@ export async function checkSurpriseMeOnStartupLogic() {
     const message = `Peacock changed the base accent colors to ${color}, because the setting is enabled for ${StandardSettings.SurpriseMeOnStartup}`;
     Logger.info(message);
   }
+}
+
+export async function setColorsFromCondition() {
+  const conditions: Array<ColorCondition> = getColorsFromCondition();
+  conditions.map(async (condition: ColorCondition) => {
+    if (!!condition && typeof condition === 'object') {
+      const results = await vscode.workspace.findFiles(condition.hasFile, '', 1);
+			if (Array.isArray(results) && results.length > 0) {
+        await applyColor(condition.color);
+        await updateColorSetting(condition.color);
+      }
+    }
+  })
 }
